@@ -1,11 +1,63 @@
-html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hi</title>
+  <title>Countdown to 4/30/26</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    #countdown {
+      font-size: 2rem;
+      letter-spacing: 2px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hi</h1>
+  <h1>Countdown to April 30, 2026</h1>
+  <div id="countdown">Calculating…</div>
+
+  <script>
+    // Target date: April 30, 2026 00:00:00 local time
+    const targetDate = new Date(2026, 3, 30, 0, 0, 0); 
+    // Months are 0-based: 3 = April
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById('countdown').textContent = 'The date has arrived!';
+        clearInterval(timer);
+        return;
+      }
+
+      const seconds = Math.floor(diff / 1000);
+      const days = Math.floor(seconds / (60 * 60 * 24));
+      const hours = Math.floor((seconds % (60 * 60 * 24)) / (60 * 60));
+      const minutes = Math.floor((seconds % (60 * 60)) / 60);
+      const secs = seconds % 60;
+
+      document.getElementById('countdown').textContent =
+        days + 'd ' +
+        hours.toString().padStart(2, '0') + 'h ' +
+        minutes.toString().padStart(2, '0') + 'm ' +
+        secs.toString().padStart(2, '0') + 's';
+    }
+
+    const timer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
 </body>
 </html>
